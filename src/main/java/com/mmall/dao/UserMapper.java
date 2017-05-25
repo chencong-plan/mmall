@@ -14,4 +14,7 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    //校验用户名是否存在
+    int checkUsername(String username);
 }
