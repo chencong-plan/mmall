@@ -146,7 +146,7 @@ public class ServerResponse<T> implements Serializable {
 
     /**
      * 创建一个错误的服务器响应
-     * @param errorMessage 错误代码
+     * @param errorMessage 返回错误信息
      * @param <T>
      * @return 返回一个ServerResponse构造器
      */
