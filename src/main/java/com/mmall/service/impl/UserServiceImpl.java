@@ -248,7 +248,7 @@ public class UserServiceImpl implements IUserService {
         int resultCount = userMapper.checkEmailByUserId(user.getEmail(), user.getId());
         if (resultCount > 0) {
             //邮箱已经存在 并且不属于当前用户的
-            return ServerResponse.createByErrorMessage("email已经存在，更换email再尝试跟新");
+            return ServerResponse.createByErrorMessage("email已经存在，更换email再尝试更新");
         }
         User updateUser = new User();
         updateUser.setId(user.getId());
@@ -281,6 +281,21 @@ public class UserServiceImpl implements IUserService {
         //找到userid的用户信息后 将用户密码置空 返回
         user.setPassword(StringUtils.EMPTY);
         return ServerResponse.createBySuccess(user);
+    }
+
+    // backend 后台部分
+
+    /**
+     * 校验是否是管理员
+     *
+     * @param user 用户信息
+     * @return 返回服务器响应数据
+     */
+    public ServerResponse checkAdminRole(User user) {
+        if (user != null && user.getRole().intValue() == Const.Role.ROLE_ADMIN) {
+            return ServerResponse.createBySuccess();
+        }
+        return ServerResponse.createByError();
     }
 
 }
