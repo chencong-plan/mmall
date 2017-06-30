@@ -13,7 +13,7 @@ import java.util.Properties;
  * 包名：  com.mmall.util
  * 作者：  chencong
  * 时间：  2017/6/24 23:24.
- * 描述：  TODO
+ * 描述：  配置文件工具类 获取properties配置文件
  */
 public class PropertiesUtil {
     private static Logger logger = LoggerFactory.getLogger(PropertiesUtil.class);
