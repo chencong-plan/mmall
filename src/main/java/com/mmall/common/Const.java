@@ -28,6 +28,22 @@ public class Const {
     }
 
     /**
+     * 购物车是否选中状态
+     * CHECKED = 1  购物车选中状态
+     * UN_CHECKED = 0 购物车中未选中状态
+     * <p>限制产品数量，在添加商品进入购物车时,判断库存是否大于将要添加进入购物车的数量</p>
+     * LIMIT_NUM_FAIL ---> limit_num_fail，添加失败
+     * <p>LIMIT_NUM_SUCCESS ---> limit_num_success ，添加成功</p>
+     */
+    public interface Cart {
+        int CHECKED = 1;  //购物车选中状态
+        int UN_CHECKED = 0; //购物车中未选中状态
+
+        String LIMIT_NUM_FAIL = "limit_num_fail";
+        String LIMIT_NUM_SUCCESS = "limit_num_success";
+    }
+
+    /**
      * 角色接口类
      */
     public interface Role {
