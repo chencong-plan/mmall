@@ -11,7 +11,7 @@
   >注册说明：在使用此接口时候需要传入用户名(username)、密码(password)、电话(phone)、邮箱(email)、问题(question)、答案(answer)
   此时的问题、答案在后面修改密码中需要用到
   
-  <table width="60%" algin="center">
+  <table>
     <tr>
       <td>参数名称</td>
       <td>说明</td>
