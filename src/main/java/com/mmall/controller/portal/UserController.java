@@ -156,18 +156,18 @@ public class UserController {
      * 登录状态下修改密码
      *
      * @param session     当前session
-     * @param passowrdOld 旧密码
+     * @param passwordOld 旧密码
      * @param passwordNew 新密码
      * @return
      */
     @RequestMapping(value = "reset_password.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> resetPassword(HttpSession session, String passowrdOld, String passwordNew) {
+    public ServerResponse<String> resetPassword(HttpSession session, String passwordOld, String passwordNew) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user == null) {
             return ServerResponse.createByErrorMessage("用户未登录");
         }
-        return iUserService.resetPassword(passowrdOld, passwordNew, user);
+        return iUserService.resetPassword(passwordOld, passwordNew, user);
     }
 
 
@@ -180,7 +180,7 @@ public class UserController {
      */
     @RequestMapping(value = "update_information.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<User> updateInfomation(HttpSession session, User user) {
+    public ServerResponse<User> updateInformation(HttpSession session, User user) {
         //首先判断用户是否登录 只有在登录状态下才能够修改信息
         User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
         if (currentUser == null) {
@@ -190,7 +190,7 @@ public class UserController {
         //从登录状态中获取用户username 和 id
         user.setId(currentUser.getId());
         user.setUsername(currentUser.getUsername());
-        ServerResponse<User> response = iUserService.updateInfomation(user);
+        ServerResponse<User> response = iUserService.updateInformation(user);
         if (response.isSuccess()) {
             //更新session
             session.setAttribute(Const.CURRENT_USER, response.getData());
@@ -207,12 +207,12 @@ public class UserController {
      */
     @RequestMapping(value = "get_information.do", method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<User> getInfomation(HttpSession session) {
+    public ServerResponse<User> getInformation(HttpSession session) {
         User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
         if (currentUser == null) {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), "未登录，需强制登录");
         }
-        return iUserService.getInfomation(currentUser.getId());
+        return iUserService.getInformation(currentUser.getId());
     }
 
 }

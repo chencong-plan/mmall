@@ -83,7 +83,7 @@ public interface IUserService {
      * @param user 当前用户
      * @return
      */
-    ServerResponse<User> updateInfomation(User user);
+    ServerResponse<User> updateInformation(User user);
 
     /**
      * 根据用户id获取到用户详细信息
@@ -91,7 +91,7 @@ public interface IUserService {
      * @param userId 用户id
      * @return
      */
-    ServerResponse<User> getInfomation(Integer userId);
+    ServerResponse<User> getInformation(Integer userId);
 
     /**
      * 检查是否是管理员

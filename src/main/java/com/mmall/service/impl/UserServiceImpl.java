@@ -23,7 +23,9 @@ import java.util.UUID;
 @Service("iUserService")
 public class UserServiceImpl implements IUserService {
 
-    //使用AutoWrited注解将UserMapper注解进来
+    /**
+     * 使用AutoWrited注解将UserMapper注解进来
+     */
     @Autowired
     private UserMapper userMapper;
 
@@ -65,6 +67,7 @@ public class UserServiceImpl implements IUserService {
      * @param user user对象
      * @return ServerResponse信息
      */
+    @Override
     public ServerResponse<String> register(User user) {
         //复用下面的checkValid校验方法
         ServerResponse validResponse = this.checkValid(user.getUsername(), Const.USERNAME);
@@ -96,6 +99,7 @@ public class UserServiceImpl implements IUserService {
      * @param type 字符串的类别
      * @return
      */
+    @Override
     public ServerResponse<String> checkValid(String str, String type) {
         if (StringUtils.isNoneBlank(type)) {
             //type不为空 开始校验用户名或者密码
@@ -131,6 +135,7 @@ public class UserServiceImpl implements IUserService {
      * @param username
      * @return
      */
+    @Override
     public ServerResponse selectQuestion(String username) {
         ServerResponse validResponse = this.checkValid(username, Const.USERNAME);
         if (validResponse.isSuccess()) {
@@ -159,6 +164,7 @@ public class UserServiceImpl implements IUserService {
      * @param answer   问题答案
      * @return
      */
+    @Override
     public ServerResponse<String> checkAnswer(String username, String question, String answer) {
         int resultCount = userMapper.checkAnswer(username, question, answer);
         if (resultCount > 0) {
@@ -179,6 +185,7 @@ public class UserServiceImpl implements IUserService {
      * @param forgetToken 产生的token
      * @return
      */
+    @Override
     public ServerResponse<String> forgetRestPassword(String username, String passwordNew, String forgetToken) {
         if (StringUtils.isBlank(forgetToken)) {
             return ServerResponse.createByErrorMessage("参数错误，token需要传递");
@@ -217,6 +224,7 @@ public class UserServiceImpl implements IUserService {
      * @param user        用户user
      * @return
      */
+    @Override
     public ServerResponse<String> resetPassword(String passwordOld, String passwordNew, User user) {
         //防止横向越权，要检验一下这个用户的旧密码，一定要指向这个用户 会查询一个count出来 如果不指定id  count大于零
 
@@ -242,7 +250,8 @@ public class UserServiceImpl implements IUserService {
      * @param user 用户
      * @return
      */
-    public ServerResponse<User> updateInfomation(User user) {
+    @Override
+    public ServerResponse<User> updateInformation(User user) {
 
         //首先进行验证用户email
         int resultCount = userMapper.checkEmailByUserId(user.getEmail(), user.getId());
@@ -272,13 +281,14 @@ public class UserServiceImpl implements IUserService {
      * @param userId 用户id
      * @return 密码置空的user
      */
-    public ServerResponse<User> getInfomation(Integer userId) {
+    @Override
+    public ServerResponse<User> getInformation(Integer userId) {
         //通过主键查询用户
         User user = userMapper.selectByPrimaryKey(userId);
         if (user == null) {
             return ServerResponse.createByErrorMessage("找不到当前用户信息");
         }
-        //找到userid的用户信息后 将用户密码置空 返回
+        //找到userId的用户信息后 将用户密码置空 返回
         user.setPassword(StringUtils.EMPTY);
         return ServerResponse.createBySuccess(user);
     }
@@ -291,6 +301,7 @@ public class UserServiceImpl implements IUserService {
      * @param user 用户信息
      * @return 返回服务器响应数据
      */
+    @Override
     public ServerResponse checkAdminRole(User user) {
         if (user != null && user.getRole().intValue() == Const.Role.ROLE_ADMIN) {
             return ServerResponse.createBySuccess();
